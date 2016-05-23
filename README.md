@@ -1,9 +1,8 @@
-# jquery-validation-plugin-tutorial
-A basic walkthrough for how to use the [jQuery Validation Plugin](https://jqueryvalidation.org/)
-
----
-
 #The jQuery Validation Plugin
+
+A basic walkthrough for how to use the [jQuery Validation Plugin](https://jqueryvalidation.org/). The assumed audience is someone who knows the basics of JavaScript and jQuery but has probably never used a jQuery plugin before.
+
+[Contributions](https://github.com/timothyjellison/jquery-validation-plugin-tutorial/pulls) and [critique](https://github.com/timothyjellison/jquery-validation-plugin-tutorial/issues) are very welcome.
 
 ##Inclusion &amp; instantiation
 
