@@ -30,7 +30,6 @@ There are two easy ways to include the jQuery Validation Plugin (JVP) in your pr
   </head>
   ```
 
-
 ---
 
 You instatiate an instance of JVP by calling the validate() method on a jQuery selection of your form. Easier done than said.
@@ -674,3 +673,9 @@ $("#myForm").validate({
 
 
 ##Styling Error Messages
+
+<style>
+	a {
+		text-decoration: none !important;
+	}
+</style>
