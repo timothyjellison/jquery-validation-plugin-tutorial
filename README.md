@@ -538,6 +538,7 @@ $("#myForm").validate({
 
 We'll find that ```onkeyup```'s ```event``` argument returns an object every time the event is triggered. It contains **a lot** of useful information. Here's a sample ```event``` object that returned after pushing the 'a' key while my ```fname``` input had focus:
 
+```javascript
 o.Event {
 	altKey: false,
 	bubbles: true,
@@ -566,16 +567,47 @@ o.Event {
 	which: 65,
 	__proto__: Object
 }
+```
 
-A really useful property in this ```event``` object is ```keyCode```. Want to only validate when numbers or letters are pressed? (Why should we validate just because a user pushed the shift key?) Add a condition that checks whether event.keyCode is greater than 46 and less than 91. Want to only validate when the tab key is pressed? Add a condition that checks whether event.keyCode equals 9. Play around with these and try to find practical use cases.
+Literally every time the event is triggered this wealth of information is returned. What can you do with it? A really useful property in this ```event``` object is ```keyCode```. Want to only validate when numbers or letters are pressed? (Really, why should we validate just because a user pushed the shift key?) Add a condition that checks whether event.keyCode is greater than 46 and less than 91. Want to only validate when the tab key is pressed? Add a condition that checks whether event.keyCode equals 9. Play around with the properties and try to find practical use cases.
 
 ---
 
 
 ###onclick
 
-Again, ```onclick``` functions just like ```onfocusout``` and ```onkeyup``` except that 1) it only applies to checkboxes and radio buttons and 2) its ```event``` argument returns an object with very different information from what you'd find in those other events.
+Again, ```onclick``` functions just like ```onfocusout``` and ```onkeyup``` except that 1) it only applies to checkboxes and radio buttons and 2) its ```event``` argument returns an object with different information from what you'd find in those other events (specifically, information about the mouse, such as which button was clicked, its x and y coordinates at the time the click happened, when the click happened, etc.).
 
+Let's make a new form with some checkboxes and radio buttons and then add a validation script that requires one of the radio buttons to be selected and uses the ```onclick``` property to hide the phone and fax options if the checkbox is selected.
+
+```html
+<form id="myForm" action="#" method="GET">
+	<input type="radio" name="radio" value="email" id="email"><label for="email">Email</label>
+	<input type="radio" name="radio" value="phone" id="phone" class="weekend"><label for="phone" class="weekend">Phone</label>
+	<input type="radio" name="radio" value="fax" id="fax" class="weekend"><label for="fax" class="weekend">Fax</label>
+	<input type="checkbox" id="checkbox" name="checkbox" checked><label for="checkbox">OK to contact on weekends?</label>
+	<input type="submit">
+</form>
+```
+
+```javascript
+$("#myForm").validate({
+    rules: {
+        radio: {
+        	required: true
+        }
+    },
+    onclick: function(element, event){
+    	if (element.id == 'checkbox') {
+    		if (element.checked) {
+    			$('.weekend').show();
+    		} else {
+    			$('.weekend').hide();
+    		}
+    	};
+    }
+});
+```
 
 
 ---
