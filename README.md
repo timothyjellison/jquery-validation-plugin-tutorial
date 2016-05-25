@@ -1,3 +1,5 @@
+<!-- Styling rules are at the bottom. If I add them at the top here Markdown adds a line of blank space that looks awkward -->
+
 #The jQuery Validation Plugin
 
 A basic walkthrough for how to use the [jQuery Validation Plugin](https://jqueryvalidation.org/). The assumed audience is someone who knows the basics of HTML forms, JavaScript, and jQuery but has probably never used a jQuery plugin before.
@@ -10,6 +12,7 @@ There are two easy ways to include the jQuery Validation Plugin (JVP) in your pr
 
 1. Provide a link to a CDN in your html's ```<head>``` tag. This way you don't have to download anything or bother asking the client to store the scripts locally.
 
+  <a href="#">
   ```html
   <head>
   	<!-- jquery first -->
@@ -18,6 +21,7 @@ There are two easy ways to include the jQuery Validation Plugin (JVP) in your pr
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
   </head>
   ```
+  </a>
 
 2. Download the source files from [https://jqueryvalidation.org/](https://jqueryvalidation.org/) and provide script references in your html's ```<head>``` tag.
 
@@ -29,7 +33,7 @@ There are two easy ways to include the jQuery Validation Plugin (JVP) in your pr
   	<script src="jquery.validate.min.js"></script>
   </head>
   ```
-
+  [<sup>Example 1b</sup>]()
 
 ---
 
@@ -37,11 +41,13 @@ You instatiate an instance of JVP by calling the validate() method on a jQuery s
 
 For example, say we have a form with ID ```myForm```:
 
+<a href="#">
 ```html
 <form id="myForm" [...] >
 	[...]
 </form>
 ```
+</a>
 
 To instantiate JVP for this form, in a ```<script>``` tag I'll need to select ```#myForm``` with jQuery and call the ```validate()``` method on it, like so:
 
@@ -674,3 +680,9 @@ $("#myForm").validate({
 
 
 ##Styling Error Messages
+
+<style>
+	a {
+		text-decoration: none !important;
+	}
+</style>
