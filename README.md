@@ -614,31 +614,145 @@ $("#myForm").validate({
 
 ###focusInvalid
 
+After a submit has been attempted and JVP has determined that the form is invalid, focus is given by default to the first invalid element. You can turn this behavior off by setting focusInvalid to false. The focus will stay wherever it was at submit (usually this is on the submit button itself).
+
+```javascript
+$('#myForm').validate({
+  focusInvalid: false
+});
+```
+
+
 ---
 
 
 ###focusCleanup
 
+Remember that whenever JVP validates your form it adds lots of extra classes and labels to your form elements. All these extra goodies might be distracting to a user as they go through and correct the form. ```focusCleanup``` removes the error classes and error messages as the invalid elements are given focus. If the user corrects the element and makes it valid, the error classes and messages will remain removed. If the user does not correct the element, the error classes and messages will return when the element loses focus.
+
+```javascript
+$('#myForm').validate({
+  focusCleanup: true
+});
+```
+
+Remember that this means lots of DOM elements will be shifting around. Get your styling right so this isn't visually distracting.
+
+
 ---
 
 
-
 ###errorElement
+
+By default, error messages are added to the DOM inside of a ```<label>``` element. You can override this by specifying a value for ```errorElement```. You can put them in ```<em>``` tags, for example.
+
+```javascript
+$('#myForm').validate({
+  errorElement: 'em'
+});
+```
+
+Where before you would have gotten an error message like this:
+
+```html
+<label id="firstName-error" class="error" for="firstName">This field is required.</label>
+```
+
+Now you get this:
+
+```html
+<em id="firstName-error" class="error">This field is required.</em>
+```
 
 ---
 
 
 ###wrapper
 
+This wraps the error element (see immediately above) in another tag. Combine this with ```errorElement``` if you wish:
+
+```javascript
+$('#myForm').validate({
+  errorElement: 'em',
+  wrapper: 'strong'
+});
+```
+
+Where before you would have gotten an error message like this:
+
+```html
+<label id="firstName-error" class="error" for="firstName">This field is required.</label>
+```
+
+Now you get this:
+
+```html
+<strong>
+	<em id="firstName-error" class="error">This field is required.</em>
+</strong>
+```
+
 ---
 
 
 ###errorLabelContainer
 
+By default, JVP adds any error element to the DOM as **the next sibling of the invalid form element**. Using ```errorLabelContainer```, you can specify **a different element to add the error labels to as children**. Let's say we wanted all our error messages to go into a message box. We would first create a div somewhere in our html and give it an ID for jQuery to grab onto, then set errorLabelContainer to that ID.
+
+```html
+<label for="firstName">First Name</label>
+<input id="firstName" name="firstName" type="text">
+<label for="middleName">Middle Name</label>
+<input id="middleName" name="middleName" type="text">
+<label for="lastName">Last Name</label>
+<input id="lastName" name="lastName" type="text">
+<input type="submit">
+
+<div id="myLabelContainer"></div>
+```
+
+```javascript
+$('#myForm').validate({
+  rules: {
+    firstName: {
+        required: true
+    },
+    middleName: {
+        required: true
+    },
+    lastName: {
+        required: true
+    }
+  },
+  errorLabelContainer: '#myLabelContainer'
+});
+```
+
+After the form validates the labels are all appended to #myLabelContainer, like so:
+
+```html
+<form action="#" method="GET" id="myForm" novalidate="novalidate">
+    <label for="firstName">First Name</label>
+    <input id="firstName" name="firstName" type="text" aria-required="true" class="error" aria-invalid="true">
+    <label for="middleName">Middle Name</label>
+    <input id="middleName" name="middleName" type="text" aria-required="true" class="error">
+    <label for="lastName">Last Name</label>
+    <input id="lastName" name="lastName" type="text" aria-required="true" class="error">
+    <input type="submit">
+
+    <div id="myLabelContainer">
+    	<label id="firstName-error" class="error" for="firstName">This field is required.</label>
+    	<label id="middleName-error" class="error" for="middleName">This field is required.</label>
+    	<label id="lastName-error" class="error" for="lastName">This field is required.</label>
+    </div>
+</form>
+```
+
 ---
 
-
 ###errorContainer
+
+
 
 ---
 
