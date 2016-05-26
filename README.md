@@ -1,12 +1,17 @@
 #The jQuery Validation Plugin
 
-A basic walkthrough for how to use the [jQuery Validation Plugin](https://jqueryvalidation.org/). The assumed audience is someone who knows the basics of HTML forms, JavaScript, and jQuery but has probably never used a jQuery plugin before.
+This is a basic walkthrough for the [jQuery Validation Plugin](https://jqueryvalidation.org/). The assumed reader is someone who knows the basics of HTML, JavaScript, and jQuery but has probably never used a jQuery plugin before. By the end of the walkthrough you should have a good grasp of how to use the jQuery Validation Plugin to validate forms.
 
 [Contributions](https://github.com/timothyjellison/jquery-validation-plugin-tutorial/pulls) and [critique](https://github.com/timothyjellison/jquery-validation-plugin-tutorial/issues) are very welcome.
 
+##What does the jQuery Validation Plugin do?
+
+The jQuery Validation Plugin (JVP) validates HTML forms. Validating forms keeps users from submitting invalid data to the server. A form is considered 'valid' if it contains only the types of information you (the developer) want it to. If you're using HTML forms to gather data from your users, you'll want to add some validation to ensure the data is sent to you in a format you can actually use.
+
+For example, if there's a full name in the full name field and a phone number in the phone number field and an email address in the email address field, JVP considers the form valid and allows the user to submit the form. But if a user provides bad information—phone numbers where the email should be, a bunch of puncuation where the name should be—JVP will disable the submit button and give the user visual and textual cues to correct his or her mistake. As the user edits their data, JVP will check repeatedly to see whether the data has become valid yet. Once the data has been edited so that it's valid, the user will be able to submit the form.
 ##Inclusion &amp; Instantiation
 
-There are two easy ways to include the jQuery Validation Plugin (JVP) in your project. In both cases, be sure to include jQuery **before** including JVP.
+There are two easy ways to include the JVP in your project. In both cases, be sure to make a statement to include jQuery **before** including JVP. JVP (like all other jQuery plugins) is useless without jQuery.
 
 1. Provide a link to a CDN in your html's ```<head>``` tag. This way you don't have to download anything or bother asking the client to store the scripts locally.
 
@@ -42,20 +47,16 @@ For example, say we have a form with ID ```myForm```:
 </form>
 ```
 
-To instantiate JVP for this form, in a ```<script>``` tag I'll need to select ```#myForm``` with jQuery and call the ```validate()``` method on it, like so:
+To instantiate JVP for this form, in a ```<script>``` tag we'll need to select ```#myForm``` with jQuery and call the ```validate()``` method on it, like so:
 
 ```javascript
 $('#myForm').validate();
 ```
 
 This is the bare minimum for installing and instantiating JVP.
+##JVP's Three Methods
 
-
-
-
-##The Three Methods
-
-The JVP only adds three methods to jQuery: ```validate()```, ```valid()```, and ```rules()```. That's it. Master these three and you'll know pretty much everything there is to know about the JVP. I'll talk briefly about ```valid()``` now, then lay out ```validate()``` in detail, and save an explanation of ```rules()``` for much later.
+JVP adds three methods to jQuery: ```validate()```, ```valid()```, and ```rules()```. That's it. If you master these three methods you'll know pretty much everything there is to know about JVP. I'll talk briefly about ```valid()``` now, then lay out ```validate()``` in detail, and save an explanation of ```rules()``` for much later.
 
 ###The ```valid()``` method
 
@@ -65,7 +66,7 @@ Call this method on a selected form or form element to test whether it is valid.
 $(element).valid();
 ```
 
-How does JVP test whether or not an element is valid? By looking at the ```rules``` specified in the ```validate()``` method's config object. ```valid()``` doesn't have any real use outside of the ```validate()``` method's context, so let's move on to ```validate()``` and save any further exploration of ```valid()``` for later. We can do most of our work without it.
+How does JVP test whether or not an element is valid? By looking at the ```rules``` specified in the ```validate()``` method's config object. ```valid()``` doesn't have any real use outside of the ```validate()``` method's context, so let's move on to ```validate()``` and save further exploration of ```valid()``` for later. We can do most of our work without it.
 
 
 ###The ```validate()``` method
@@ -116,9 +117,6 @@ That said, it's better practice to use the config object than inline attributes,
 ###The ```rules()``` method
 
 The ```rules()``` method returns, adds, and removes rules to/from form elements. We're going to wait to discuss this further. It will make a lot more sense once you've gotten to know the ```validate()``` method.
-
-
-
 
 ##```validate()``` config object properties
 
@@ -752,38 +750,46 @@ After the form validates the labels are all appended to #myLabelContainer, like 
 
 ###errorContainer
 
-
+*...*
 
 ---
 
 
 ###showErrors
 
+*...*
+
 ---
 
 
 ###errorPlacement
+
+*...*
 
 ---
 
 
 ###success
 
+*...*
+
 ---
 
 
 ###highlight
+
+*...*
 
 ---
 
 
 ###unhighlight
 
+*...*
+
 ---
 
 
 ###ignoreTitle
 
-
-
-##Styling Error Messages
+*...*

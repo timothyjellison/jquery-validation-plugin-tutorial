@@ -32,5 +32,8 @@ node_modules
 # Optional REPL history
 .node_repl_history
 
-del_this_tester.html
-del_this_tester_2.html
+package.json
+LICENSE
+src
+tests
+gruntfile.js
