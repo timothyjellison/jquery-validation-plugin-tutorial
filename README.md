@@ -750,14 +750,20 @@ After the form validates the labels are all appended to #myLabelContainer, like 
 
 ###errorContainer
 
-*...*
+*[[Could use some help unpacking what this one does. It's unclear to me how it differs from errorLabelContainer.]]*
 
 ---
 
 
 ###showErrors
 
-*...*
+The showErrors property gives you access to all of the validation information for your form. It's essentially a callback function that takes two arguments, errorMap and errorList, each of which gives you different information about your form's validation settings. Here's an example:
+
+```html
+<<insert example>>
+```
+
+*[[I'm struggling to find a use case for this.]]*
 
 ---
 
