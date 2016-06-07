@@ -118,9 +118,9 @@ That said, it's better practice to use the config object than inline attributes,
 
 The ```rules()``` method returns, adds, and removes rules to/from form elements. We're going to wait to discuss this further. It will make a lot more sense once you've gotten to know the ```validate()``` method.
 
-##```validate()``` config object properties
+##```validate()``` options
 
-The ```validate()``` method takes an object as its sole parameter. We'll refer to this parameter throughout this tutorial as the config object because it specifies all of our form's configuration settings up front. The config object can contain 25 different properties. Here's a comprehensive list, followed by a quick overview of all 25 properties. Each property explanation builds on the ones that came before, so you'll probably get the most out of this section if you read it sequentially.
+The ```validate()``` method takes an object as its sole parameter. We'll refer to this parameter throughout this tutorial as the options because it specifies all of our form's configuration settings up front. The options can contain 25 different properties. Here's a comprehensive list, followed by a quick overview of all 25 properties. Each property explanation builds on the ones that came before, so you'll probably get the most out of this section if you read it sequentially.
 
 
 ```javascript
@@ -138,7 +138,7 @@ errorPlacement  |  success       |  highlight            |  unhighlight     |  i
 
 ---
 
-###debug
+###```debug```
 
 A simple boolean, the debug property will keep your form from submitting in order to make testing your validation features easier. It will save you a lot of hitting the back and refresh buttons.
 
@@ -152,7 +152,7 @@ Make sure to set debug to false (or just delete the whole property) once your fo
 
 ---
 
-###rules
+###```rules```
 
 The rules property is one of the most important things to know about JVP. You can get a ton of value out of JVP just by knowing how to use this one property. The rules key takes as its value an object specifying validation behaviors for specific form elements. The keys in our rules value object are **the names of the form elements you wish to target**. For example, here we'll target two input elements (firstName and lastName) to make sure they aren't empty.
 
@@ -203,9 +203,9 @@ Now this not only enforces that the email field must be non-empty, but it also m
 ---
 
 
-###ignore
+###```ignore```
 
-Lets you specify rules to ignore. This can be useful if certain conditions had changed and a rule no longer needed to be validated. Imagine somebody clicked a checkbox specifying that they have no last name. The checkbox could trigger a toggleClass method that adds the class "ignoreMe" to the lastName input element, and then an ignore property in your config object would make sure the validator ignores the lastName input.
+Lets you specify rules to ignore. This can be useful if certain conditions had changed and a rule no longer needed to be validated. Imagine somebody clicked a checkbox specifying that they have no last name. The checkbox could trigger a toggleClass method that adds the class "ignoreMe" to the lastName input element, and then an ignore property in your options would make sure the validator ignores the lastName input.
 
 ```html
 <form action="#" method="GET" id="myForm">
@@ -237,7 +237,7 @@ Even though a required rule is specified for lastName, the validator will ignore
 ---
 
 
-###submitHandler
+###```submitHandler``` and ```invalidHandler```
 
 The submitHandler property runs an anonymous callback function when a valid form is successfully submitted. Basically, this lets you take control of the standard submit button functionality. Say you're in debug mode and you want to send a message to the console when a valid form is submitted.
 
@@ -273,12 +273,7 @@ $('#myForm').validate({
 
 You could use this to trigger an animation, a style change, a modal, or some set of calculations. Whatever you want.
 
----
-
-
-###invalidHandler
-
-Basically the same as submitHandler, except the anonymous callback function runs every time the user attempts to submit an invalid form.
+ ```invalidHandler``` is basically the same as submitHandler, except the anonymous callback function runs every time the user attempts to submit an invalid form.
 
 ```javascript
 $('#myForm').validate({
@@ -299,7 +294,7 @@ You could use this to trigger an animation, a style change, a modal, or some set
 ---
 
 
-###messages
+###```messages```
 
 JVP comes packaged with some default validation responses to prompt the user for valid information ("This field is required.", "Please enter a valid email address.", etc.), but you'll probably want to come up with your own messages. As with the rules property, the messages property takes an object, and that's object's keys match up to input element names.
 
@@ -333,7 +328,7 @@ Notice in the email messages that you can tailor your messages to the individual
 ---
 
 
-###errorClass
+###```errorClass``` and ```validClass```
 
 Whenever JVP validates your form, it adds a class to each validated form element to indicate whether or not it was valid. By default, valid inputs are given class "valid" and invalid inputs are given class "error".
 
@@ -398,12 +393,7 @@ $('#myForm').validate({
 
 Now when you run JVP it will add ```class="floop"``` to your form elements rather than "error".
 
----
-
-
-###validClass
-
-Basically the same as above. When JVP runs and finds that one of your form elements is valid, it will add ```class="valid"``` to that element. To take control and use your own custom class value, specify a validClass property.
+ ```validClass``` is basically the same as ```errorClass```. When JVP runs and finds that one of your form elements is valid, it will add ```class="valid"``` to that element. To take control and use your own custom class value, specify a validClass property.
 
 ```javascript
 $('#myForm').validate({
@@ -420,14 +410,12 @@ $('#myForm').validate({
 });
 ```
 
----
 
-
-###groups
+###```groups```
 
 What if you want to validate two form elements but only display one error message if either is invalid? For example, say you were testing for first and last name but only wanted to write 'Please enter your full name' if either input was missing a value (rather than separate 'Please enter your first name' and 'Please enter your last name' messages). How would you accomplish that?
 
-You would use the ```validate()``` config object's ```groups``` property.
+You would use the ```groups``` property.
 
 ```html
 <form id="myForm" action="#" method="GET">
@@ -463,7 +451,7 @@ Here the groups property is binding the ```fname``` and ```lname``` inputs into 
 ---
 
 
-###onsubmit
+###```onsubmit```
 
 This is a simple boolean (true by default) that turns validation off at the point of submission. If you want validation to take place as the user moves through the form (triggering keyup, blur, focus, click, and other events) but ultimately be able to submit whatever they want when they hit the submit button, set ```onsubmit``` to false.
 
@@ -480,7 +468,7 @@ Note that if ```onsubmit``` is set to false and you haven't set validation to be
 ---
 
 
-###onfocusout
+###```onfocusout```
 
 The ```onfocusout```property gives you some control over what happens when focus moves off of a form element. If you don't want any validation to occur on focus out, set it to false.
 
@@ -513,7 +501,7 @@ Now, instead of waiting until the submit button is hit, JVP will check the eleme
 ---
 
 
-###onkeyup
+###```onkeyup```
 
 Exactly the same as onfocusout, except triggered by the user pressing a key while focus is on the selected element. (Note: this includes hitting ```tab```ing to move focus out of the selected element.)
 
@@ -571,7 +559,7 @@ Literally every time the event is triggered this wealth of information is return
 ---
 
 
-###onclick
+###```onclick```
 
 Again, ```onclick``` functions just like ```onfocusout``` and ```onkeyup``` except that 1) it only applies to checkboxes and radio buttons and 2) its ```event``` argument returns an object with different information from what you'd find in those other events (specifically, information about the mouse, such as which button was clicked, its x and y coordinates at the time the click happened, when the click happened, etc.).
 
@@ -610,7 +598,7 @@ $("#myForm").validate({
 ---
 
 
-###focusInvalid
+###```focusInvalid```
 
 After a submit has been attempted and JVP has determined that the form is invalid, focus is given by default to the first invalid element. You can turn this behavior off by setting focusInvalid to false. The focus will stay wherever it was at submit (usually this is on the submit button itself).
 
@@ -624,7 +612,7 @@ $('#myForm').validate({
 ---
 
 
-###focusCleanup
+###```focusCleanup```
 
 Remember that whenever JVP validates your form it adds lots of extra classes and labels to your form elements. All these extra goodies might be distracting to a user as they go through and correct the form. ```focusCleanup``` removes the error classes and error messages as the invalid elements are given focus. If the user corrects the element and makes it valid, the error classes and messages will remain removed. If the user does not correct the element, the error classes and messages will return when the element loses focus.
 
@@ -640,7 +628,7 @@ Remember that this means lots of DOM elements will be shifting around. Get your 
 ---
 
 
-###errorElement
+###```errorElement``` and ```wrapper```
 
 By default, error messages are added to the DOM inside of a ```<label>``` element. You can override this by specifying a value for ```errorElement```. You can put them in ```<em>``` tags, for example.
 
@@ -662,12 +650,8 @@ Now you get this:
 <em id="firstName-error" class="error">This field is required.</em>
 ```
 
----
 
-
-###wrapper
-
-This wraps the error element (see immediately above) in another tag. Combine this with ```errorElement``` if you wish:
+ ```wrapper```, on the other hand, wraps the error element in another tag. Combine this with ```errorElement``` if you wish:
 
 ```javascript
 $('#myForm').validate({
@@ -676,13 +660,13 @@ $('#myForm').validate({
 });
 ```
 
-Where before you would have gotten an error message like this:
+With the default settings you would have gotten an error message like this:
 
 ```html
 <label id="firstName-error" class="error" for="firstName">This field is required.</label>
 ```
 
-Now you get this:
+But now you get this:
 
 ```html
 <strong>
@@ -693,7 +677,7 @@ Now you get this:
 ---
 
 
-###errorLabelContainer
+###```errorLabelContainer``` and ```errorContainer```
 
 By default, JVP adds any error element to the DOM as **the next sibling of the invalid form element**. Using ```errorLabelContainer```, you can specify **a different element to add the error labels to as children**. Let's say we wanted all our error messages to go into a message box. We would first create a div somewhere in our html and give it an ID for jQuery to grab onto, then set errorLabelContainer to that ID.
 
@@ -746,56 +730,213 @@ After the form validates the labels are all appended to #myLabelContainer, like 
 </form>
 ```
 
----
-
-###errorContainer
-
-*[[Could use some help unpacking what this one does. It's unclear to me how it differs from errorLabelContainer.]]*
+*[[I could use some help unpacking ```errorContainer``` does. It's unclear to me how it differs from errorLabelContainer.]]*
 
 ---
 
 
-###showErrors
+###```showErrors```
 
-The showErrors property gives you access to all of the validation information for your form. It's essentially a callback function that takes two arguments, errorMap and errorList, each of which gives you different information about your form's validation settings. Here's an example:
+The showErrors property gives you convenient access to all of the validation information spit out when a form is deemed invalid. Want a quick way to know the number and type of errors the user needs to address? It's readily available with ```showErrors```.
+
+ ```showerrors``` takes as its value a callback function that accepts two arguments, **errorMap** and **errorList**, each of which gives you different information about your form's validation settings.
+
+errorMap is an object, basically just a set of key-value pairs where the key is the error-causing input's name and the value is the error message it displays.
+
+errorList is a little more complex. It's an array of objects each containing three properties: 1) .element, which is just a pointer to the error-causing input, 2) .message, the error message string, and 3) .method, a string that names the particular rule that triggered the validation warning. Here's an example:
 
 ```html
-<<insert example>>
+<form action="#" method="GET" id="myForm">
+	<label for="firstName">First Name</label>
+	<input id="firstName" name="firstName" type="text">
+	<label for="lastName">Last Name</label>
+	<input id="lastName" name="lastName" type="text">
+	<input type="submit">
+</form>
 ```
 
-*[[I'm struggling to find a use case for this.]]*
+```javascript
+$('#myForm').validate({
+  rules: {
+    firstName: {
+      required: true
+    },
+    lastName: {
+      required: true
+    }
+  },
+  showErrors: function(errorMap, errorList) {
+    console.log('errorMap: ', errorMap);
+    errorList.forEach(function(error, index) {
+  		console.log('errorList index ' + index + ': ' +
+                    'element -- ' +  error.element + ', ' +
+                    'message -- ' +  error.message + ', ' +
+                    'method -- ' +  error.method);
+    });
+  }
+});
+```
+
+If you run this and try to submit the form without filling in any values for firstName or lastName, the console will output the following:
+
+```
+errorMap: Object {firstName: "This field is required.", lastName: "This field is required."}
+errorList index 0: element -- [object HTMLInputElement], message -- This field is required., method -- required
+errorList index 1: element -- [object HTMLInputElement], message -- This field is required., method -- required
+```
+
+*[[I'm struggling to find a good illustrative use case for this. Would appreciate [contributions](https://github.com/timothyjellison/jquery-validation-plugin-tutorial/pulls).]]*
 
 ---
 
 
-###errorPlacement
+###```errorPlacement```
 
-*...*
+By default, error labels are appended to the element that cause the error. ```errorPlacement``` lets you hijack that functionality, allowing you to place error labels wherever you choose.
+
+Like ```showerrors```, ```errorPlacement``` takes as its value a callback function, which requires two arguments: error (the created error label as a jQuery object) and element (the invalid element as a jQuery object).
+
+Lets say we want to put our errors into a div with ID 'errorList'. Here's how we'd do it:
+
+```html
+<form action="#" method="GET" id="myForm">
+	<label for="firstName">First Name</label>
+	<input id="firstName" name="firstName" type="text">
+	<label for="lastName">Last Name</label>
+	<input id="lastName" name="lastName" type="text">
+	<input type="submit">
+</form>
+
+<div id="errorList"></div>
+
+```
+
+```javascript
+$('#myForm').validate({
+  rules: {
+    firstName: {
+      required: true
+    },
+    lastName: {
+      required: true
+    }
+  },
+  errorPlacement: function(error, element) {
+  	error.appendTo('#errorList');
+  }
+});
+```
 
 ---
 
 
-###success
+###```success```
 
-*...*
+So far we've only added labels to errors. But what if you want to tell the user that they're getting things right? Use the ```success``` property to send the user messages when a form element is valid.
+
+There are two ways to use ```success```, one where you provide a string and another where you provide a callback function. The string just adds a class of your choice to the valid element.
+
+```html
+<form action="#" method="GET" id="myForm">
+	<label for="firstName">First Name</label>
+	<input id="firstName" name="firstName" type="text">
+	<label for="lastName">Last Name</label>
+	<input id="lastName" name="lastName" type="text">
+	<input type="submit">
+</form>
+```
+
+```javascript
+$('#myForm').validate({
+  rules: {
+    firstName: {
+      required: true
+    },
+    lastName: {
+      required: true
+    }
+  },
+  success: "mySuccessClass"
+});
+```
+
+Now 'mySuccessClass' will be toggled on and off your elements as they are found valid or invalid, respectively.
+
+The callback function approach provides some more control. The function takes two arguments: ```label```, a pointer to the error label element, and ```element```, a pointer to the invalid element.
+
+```javascript
+$('#myForm').validate({
+  rules: {
+    firstName: {
+      required: true
+    },
+    lastName: {
+      required: true
+    }
+  },
+  success: function(label, element){
+	label.text('Ok!');
+	alert(element.val());
+  }
+});
+```
 
 ---
 
 
-###highlight
+###```highlight``` and ```unhighlight```
 
-*...*
+By default, jQuery adds the errorClass to any form elements found invalid, a process called *highlighting*. (The default errorClass is simply "error", but as you saw above you can change this with the errorClass property.)
+
+The ```highlight``` property gives you more control over the highlighting process. It's value is a callback function that takes three arguments: element, errorClass, and validClass. element, as you've seen in other properties above, is a pointer to the invalid element. ```errorClass``` and ```validClass``` give you the name of the currently set errorClass and validClass as strings.
+
+Let's look at an example:
+
+```html
+<form action="#" method="GET" id="myForm">
+	<label for="firstName">First Name</label>
+	<input id="firstName" name="firstName" type="text">
+	<label for="lastName">Last Name</label>
+	<input id="lastName" name="lastName" type="text">
+	<input type="submit">
+</form>
+```
+
+```javascript
+$('#myForm').validate({
+  rules: {
+    firstName: {
+      required: true
+    },
+    lastName: {
+      required: true
+    }
+  },
+  highlight: function(element, errorClass, validClass) {
+  	$(element).addClass(errorClass);
+  	alert(errorClass);
+  }
+});
+```
 
 ---
 
 
-###unhighlight
+###```ignoreTitle```
 
-*...*
+If your form elements have ```title``` attributes (usually used in forms to create helpful tooltips when the user hovers over the element), JVP will pull those attribute values into the error labels. This is obviously a problem, so be sure to set ```ignoreTitle``` to true.
 
----
-
-
-###ignoreTitle
-
-*...*
+```javascript
+$('#myForm').validate({
+  rules: {
+    firstName: {
+      required: true
+    },
+    lastName: {
+      required: true
+    }
+  },
+  	ignoreTitle: true,
+  }
+});
+```
