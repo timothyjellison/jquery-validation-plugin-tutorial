@@ -6,34 +6,39 @@ This is a basic walkthrough for the [jQuery Validation Plugin](https://jqueryval
 
 ##What does the jQuery Validation Plugin do?
 
-The jQuery Validation Plugin (JVP) validates HTML forms. Validating forms keeps users from submitting invalid data to the server. A form is considered 'valid' if it contains only the types of information you (the developer) want it to. If you're using HTML forms to gather data from your users, you'll want to add some validation to ensure the data is sent to you in a format you can actually use.
+Feel free to skip over this if you already know what validation means.
 
-For example, if there's a full name in the full name field and a phone number in the phone number field and an email address in the email address field, JVP considers the form valid and allows the user to submit the form. But if a user provides bad information—phone numbers where the email should be, a bunch of puncuation where the name should be—JVP will disable the submit button and give the user visual and textual cues to correct his or her mistake. As the user edits their data, JVP will check repeatedly to see whether the data has become valid yet. Once the data has been edited so that it's valid, the user will be able to submit the form.
+The jQuery Validation Plugin (JVP) validates HTML forms. Validating forms keeps users from submitting invalid data to the server. If you're using HTML forms to gather data from your users, you'll want to add some validation to ensure the data is sent to you in a format you can actually use.
+
+A form is considered 'valid' if it contains only the types of information you (the developer) want it to. For example, if there's a full name in the full name field and a phone number in the phone number field and an email address in the email address field, JVP considers the form valid and allows the user to submit the form. But if a user provides bad information—phone numbers where the email should be, a bunch of puncuation where the name should be—JVP will disable the submit button and give the user visual and textual cues to correct his or her mistake. As the user edits their data, JVP will check repeatedly to see whether the data has become valid yet. Once the data has been edited so JVP considers it valid, the user will be allowed to submit the form.
 ##Inclusion &amp; Instantiation
 
-There are two easy ways to include the JVP in your project. In both cases, be sure to make a statement to include jQuery **before** including JVP. JVP (like all other jQuery plugins) is useless without jQuery.
+With any jQuery plugin, you have to **include** and then **instantiate** it.
 
-1. Provide a link to a CDN in your html's ```<head>``` tag. This way you don't have to download anything or bother asking the client to store the scripts locally.
+You **include** JVP by adding a script tag to your html doc. There are two easy ways to include JVP in your project. With either of these two methods, be sure to include jQuery **before** including JVP. JVP (like all other jQuery plugins) is useless without jQuery.
 
-  ```html
-  <head>
-  	<!-- jquery first -->
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
-  	<!-- jquery validation plugin second -->
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
-  </head>
-  ```
+**Method 1)** Provide a link to a CDN in your html's ```<head>``` tag. Using a CDN (Content Delivery Network) saves you the trouble of storing jQuery and JVP locally ([in addition to a lot of other advantages](https://www.sitepoint.com/7-reasons-to-use-a-cdn/)).
 
-2. Download the source files from [https://jqueryvalidation.org/](https://jqueryvalidation.org/) and provide script references in your html's ```<head>``` tag.
+```html
+<head>
+	<!-- jquery first -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+	<!-- jquery validation plugin second -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+</head>
+```
 
-  ```html
-  <head>
-  	<!-- jquery first -->
-  	<script src="jquery.min.js"></script>
-  	<!-- jquery validation plugin second -->
-  	<script src="jquery.validate.min.js"></script>
-  </head>
-  ```
+**Method 2)** Download the source files from [https://jqueryvalidation.org/](https://jqueryvalidation.org/) and provide script references in your html's ```<head>``` tag.
+
+```html
+<head>
+	<!-- jquery first -->
+	<script src="jquery.min.js"></script>
+	<!-- jquery validation plugin second -->
+	<script src="jquery.validate.min.js"></script>
+</head>
+```
+
 
 ---
 
@@ -53,25 +58,25 @@ To instantiate JVP for this form, in a ```<script>``` tag we'll need to select `
 $('#myForm').validate();
 ```
 
-This is the bare minimum for installing and instantiating JVP.
+Your form is now being validated by JVP. This is the bare minimum for including and instantiating JVP. There are more advanced methods
 ##JVP's Three Methods
 
-JVP adds three methods to jQuery: ```validate()```, ```valid()```, and ```rules()```. That's it. If you master these three methods you'll know pretty much everything there is to know about JVP. I'll talk briefly about ```valid()``` now, then lay out ```validate()``` in detail, and save an explanation of ```rules()``` for much later.
+JVP adds three methods to jQuery: ```validate()```, ```valid()```, and ```rules()```. That's it. If you master these three methods you'll know pretty much everything there is to know about JVP. I'll be brief on ```valid()``` for now, then lay out ```validate()``` in detail, and save a detailed explanation of ```rules()``` for later.
 
 ###The ```valid()``` method
 
-Call this method on a selected form or form element to test whether it is valid.
+Call this method on a jQuery selected form or form element to test whether it is valid.
 
 ```javascript
-$(element).valid();
+$('element').valid();
 ```
 
-How does JVP test whether or not an element is valid? By looking at the ```rules``` specified in the ```validate()``` method's config object. ```valid()``` doesn't have any real use outside of the ```validate()``` method's context, so let's move on to ```validate()``` and save further exploration of ```valid()``` for later. We can do most of our work without it.
+How does JVP know whether or not an element is valid? By looking at the ```rules``` specified in the ```validate()``` method's options object. In other words, ```valid()``` doesn't have any real use outside of the ```validate()``` method's context. So let's move on to ```validate()``` and save further exploration of ```valid()``` for later. We can do most of our work without it.
 
 
 ###The ```validate()``` method
 
-All JVP validation begins with the ```validate()``` method. ```validate()``` accepts an object (the config object) as its parameter. Though it isn't the *only* way to set up your validation procedures, the config object is the **best** way.
+All JVP validation begins with the ```validate()``` method. ```validate()``` accepts an object (**the options object**) as its parameter. Though it isn't the *only* way to set up your validation procedures, in my opinion the options object is the *best* way.
 
 Here's a quick example of how JVP can be used to require that an input be non-empty:
 
@@ -84,22 +89,21 @@ Here's a quick example of how JVP can be used to require that an input be non-em
 
 ```javascript
 $('#myForm').validate({
-	// this first property in my object
-	// sets the rules for my validation procedures
 	rules: {
-		// an object nested in my first object
-		// targets the specific element to add a rule to
 		myText: {
-			// another object nested inside the object
-			// (noticing a pattern?)
-			// specifies the actual rule
 			required: true
 		}
 	}
 });
 ```
 
-It is possible to validate using inline attributes on your form elements rather than by specifying a config object. **However**, this violates the principle of separation of concerns and is more difficult to maintain. Here's how the previous example would work with inline attributes.
+Let's break this down. I select the form with jQuery and call the validate method on it. I pass an object into validate as an argument. The first property in my object tells JVP "Hey, I've got some rules ready that this form needs to follow." Inside the rules property is another object that tells JVP which element to add a rule to. And inside *that* property is another object that specifies the rule itself.
+
+Some things to notice in the above example. 1) Your options object is going to contain a lot of objects, and those objects will probably also contain some objects. Get used to this nested structure. 2) ```rules``` contains a list of the elements' *name* attributes. Usually with jQuery we target elements using their IDs or classes, but in this specific context we're going to use names.
+
+---
+
+It is possible to validate using inline attributes on your form elements rather than by specifying an options object. **However**, this violates the principle of separation of concerns and is more difficult to maintain. Here's how the previous example would work with inline attributes.
 
 ```html
 <form id="myForm" [...] >
@@ -112,15 +116,14 @@ It is possible to validate using inline attributes on your form elements rather 
 $('#myForm').validate();
 ```
 
-That said, it's better practice to use the config object than inline attributes, so we won't be covering how to use inline attributes in the rest of this tutorial.
+That said, it's better practice to use the options object than inline attributes, so we won't be covering how to use inline attributes in the rest of this tutorial.
 
 ###The ```rules()``` method
 
-The ```rules()``` method returns, adds, and removes rules to/from form elements. We're going to wait to discuss this further. It will make a lot more sense once you've gotten to know the ```validate()``` method.
+The ```rules()``` method returns, adds, and removes rules to and from form elements. We're going to wait to discuss this further. This will make a lot more sense once you've gotten to know the ```validate()``` method, so let's wait before looking at this any further.
+##The ```validate()``` options object
 
-##```validate()``` options
-
-The ```validate()``` method takes an object as its sole parameter. We'll refer to this parameter throughout this tutorial as the options because it specifies all of our form's configuration settings up front. The options can contain 25 different properties. Here's a comprehensive list, followed by a quick overview of all 25 properties. Each property explanation builds on the ones that came before, so you'll probably get the most out of this section if you read it sequentially.
+The ```validate()``` method takes an object as its sole parameter. We refer to this parameter throughout this tutorial as *the options object* because 1) it specifies all of our form's configuration settings up front and 2) that's how JVP refers to it in its own code. The options object can contain any combination of 25 different properties. Here's a comprehensive list, followed by a quick overview of all 25 properties. Each property explanation builds on the ones that came before, so you'll probably get the most out of this section if you read it sequentially.
 
 
 ```javascript
@@ -140,7 +143,7 @@ errorPlacement  |  success       |  highlight            |  unhighlight     |  i
 
 ###```debug```
 
-A simple boolean, the debug property will keep your form from submitting in order to make testing your validation features easier. It will save you a lot of hitting the back and refresh buttons.
+A simple boolean, if the debug property is set to true it will keep your form from submitting and redirecting your browser to the wherever your form's ```action``` attribute is pointed. This makes testing your validation features *much* easier. By default ```debug``` is set to false.
 
 ```javascript
 $('#myForm').validate({
@@ -148,7 +151,7 @@ $('#myForm').validate({
 });
 ```
 
-Make sure to set debug to false (or just delete the whole property) once your form is ready to ship.
+Once your form is ready to ship, make sure to set debug to false or just delete the whole property.
 
 ---
 
